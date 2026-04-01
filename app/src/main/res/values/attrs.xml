@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomToolbar">
+        <attr name="title" format="string"/>
+        <attr name="leftActionSrc" format="reference"/>
+        <attr name="leftActionVisible" format="boolean"/>
+        <attr name="rightActionSrc" format="reference"/>
+    </declare-styleable>
+</resources>

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Ambi Planner</string>
+
+    <string name="setup_stage">%s setup stage in %s</string>
+    <string name="exception_null_app_container_fragment">Application container fragment can\'t be null in current stage</string>
+    <string name="unexpected_server_error">Unexpected server error</string>
+    <string name="unexpected_network_error">Unexpected network error</string>
+    <string name="unable_to_communicate_to_server">Unable to communicate to server</string>
+    <string name="no_internet_connection">No internet connection</string>
+
+    <string name="home_fragment">Home Fragment</string>
 </resources>
