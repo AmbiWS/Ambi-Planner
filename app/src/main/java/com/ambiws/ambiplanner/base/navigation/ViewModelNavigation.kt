@@ -59,4 +59,18 @@ open class ViewModelNavigation {
             hideKeyboard
         )
     }
+
+    fun navigateChild(
+        direction: NavDirections,
+        navigatorExtras: Navigator.Extras? = null,
+        hideKeyboard: Boolean = true
+    ) {
+        navigationCommand.value = NavigationCommand.HostNavigationCommand(
+            NavigationCommand.To(
+                direction,
+                navigatorExtras,
+                hideKeyboard
+            )
+        )
+    }
 }

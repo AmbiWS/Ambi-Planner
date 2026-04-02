@@ -1,13 +1,13 @@
 package com.ambiws.ambiplanner
 
-import androidx.lifecycle.ViewModel
+import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.utils.SingleLiveEvent
 
-class MainViewModel : ViewModel() {
+class MainViewModel : BaseViewModel() {
 
     val startDestinationEvent = SingleLiveEvent<Int>()
 
     fun initStartDestination() {
-        startDestinationEvent.value = R.id.homeFragment
+        startDestinationEvent.value = R.id.dashboardFragment
     }
 }

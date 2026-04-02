@@ -34,4 +34,9 @@ sealed class NavigationCommand(
     data class BackToStart(
         override val hideKeyboard: Boolean = true
     ) : NavigationCommand(hideKeyboard)
+
+    data class HostNavigationCommand(
+        val navigationCommand: NavigationCommand,
+        override val hideKeyboard: Boolean = navigationCommand.hideKeyboard
+    ) : NavigationCommand(hideKeyboard = hideKeyboard)
 }

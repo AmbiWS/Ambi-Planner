@@ -8,7 +8,8 @@ import com.ambiws.ambiplanner.utils.loge
 typealias NavControllerDefinition = () -> NavController
 
 open class NavigationCommandHandler(
-    private val navControllerDefinition: NavControllerDefinition
+    private val navControllerDefinition: NavControllerDefinition,
+    private val childNavControllerDefinition: NavControllerDefinition? = null
 ) : NavigationCommandHandlerInterface {
 
     override fun handle(
@@ -56,6 +57,12 @@ open class NavigationCommandHandler(
             }
             is NavigationCommand.BackToStart -> {
                 navController.popBackStack(navController.graph.startDestinationId, false)
+            }
+            is NavigationCommand.HostNavigationCommand -> {
+                childNavControllerDefinition?.invoke()?.also { navigationController ->
+                    handle(activity, navigationController, navigationCommand.navigationCommand)
+                }
+                    ?: throw IllegalStateException("Declare childNavControllerDefinition to handle HostNavigationCommand")
             }
         }
     }
