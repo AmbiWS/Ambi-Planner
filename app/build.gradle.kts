@@ -69,4 +69,7 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(platform(libs.okhttp))
     implementation(libs.okhttp.logging.interceptor)
+
+    // Calendar
+    implementation(libs.calendar)
 }

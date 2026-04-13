@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.ambiws.ambiplanner.features.calendar.CalendarFragment"
+        android:name="com.ambiws.ambiplanner.features.calendar.ui.CalendarFragment"
         android:label="CalendarFragment" />
 </navigation>

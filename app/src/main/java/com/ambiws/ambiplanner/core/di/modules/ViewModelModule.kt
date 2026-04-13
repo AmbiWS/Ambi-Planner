@@ -2,7 +2,7 @@ package com.ambiws.ambiplanner.core.di.modules
 
 import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.core.di.vm.ViewModelKey
-import com.ambiws.ambiplanner.features.calendar.CalendarViewModel
+import com.ambiws.ambiplanner.features.calendar.ui.CalendarViewModel
 import com.ambiws.ambiplanner.features.dashboard.ui.DashboardViewModel
 import com.ambiws.ambiplanner.features.home.ui.HomeViewModel
 import com.ambiws.ambiplanner.features.settings.SettingsViewModel

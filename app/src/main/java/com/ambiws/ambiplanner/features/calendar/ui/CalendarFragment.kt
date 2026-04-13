@@ -1,4 +1,4 @@
-package com.ambiws.ambiplanner.features.calendar
+package com.ambiws.ambiplanner.features.calendar.ui
 
 import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.databinding.FragmentCalendarBinding
