@@ -5,8 +5,10 @@ import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.databinding.CalendarDayBinding
 import com.ambiws.ambiplanner.databinding.FragmentCalendarBinding
 import com.kizitonwose.calendar.core.CalendarDay
+import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.ViewContainer
+import java.time.YearMonth
 
 class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding>(
     FragmentCalendarBinding::inflate
@@ -15,6 +17,7 @@ class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding
     override fun setupUi() {
         super.setupUi()
 
+        val monthsToAdd = 100L
         binding.calendar.dayBinder = object : MonthDayBinder<DayViewContainer> {
             // Called only when a new container is needed.
             override fun create(view: View) = DayViewContainer(view)
@@ -24,6 +27,13 @@ class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding
                 container.textView.text = data.date.dayOfMonth.toString()
             }
         }
+
+        val currentMonth = YearMonth.now()
+        val startMonth = currentMonth.minusMonths(monthsToAdd)
+        val endMonth = currentMonth.plusMonths(monthsToAdd)
+        val firstDayOfWeek = firstDayOfWeekFromLocale()
+        binding.calendar.setup(startMonth, endMonth, firstDayOfWeek)
+        binding.calendar.scrollToMonth(currentMonth)
     }
 }
 
