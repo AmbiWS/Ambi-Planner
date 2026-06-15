@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ButtonClassic">
-        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:backgroundTint">@color/secondary</item>
         <item name="android:letterSpacing">0.07</item>
@@ -12,7 +12,7 @@
 
     <style name="TextClassic14">
         <item name="android:textSize">14sp</item>
-        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/black</item>
     </style>
