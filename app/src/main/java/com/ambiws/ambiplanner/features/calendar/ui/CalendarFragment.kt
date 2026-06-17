@@ -12,6 +12,7 @@ import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import java.time.YearMonth
+import java.util.Locale
 
 class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding>(
     FragmentCalendarBinding::inflate
@@ -32,7 +33,9 @@ class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding
             calendar.monthHeaderBinder = object : MonthHeaderFooterBinder<MonthHeaderContainer> {
                 override fun create(view: View) = MonthHeaderContainer(view)
                 override fun bind(container: MonthHeaderContainer, data: CalendarMonth) {
-                    container.textView.text = data.yearMonth.month.name
+                    val date = data.yearMonth
+                    val info = "${date.month.name.lowercase().capitalize(Locale.getDefault())}, ${date.year}"
+                    container.textView.text = info
                 }
             }
 

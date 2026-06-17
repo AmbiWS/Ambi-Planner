@@ -7,5 +7,7 @@
     android:fontFamily="@font/montserrat_regular"
     android:gravity="center"
     android:textColor="@color/black"
-    android:textSize="14sp"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp"
+    android:textSize="18sp"
     tools:text="January" />
