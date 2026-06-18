@@ -4,6 +4,7 @@ import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.core.di.vm.ViewModelKey
 import com.ambiws.ambiplanner.features.calendar.ui.CalendarViewModel
 import com.ambiws.ambiplanner.features.dashboard.ui.DashboardViewModel
+import com.ambiws.ambiplanner.features.home.routine.ui.EditRoutineItemViewModel
 import com.ambiws.ambiplanner.features.home.ui.HomeViewModel
 import com.ambiws.ambiplanner.features.settings.SettingsViewModel
 import dagger.Binds
@@ -32,4 +33,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     fun provideSettingsViewModel(settingsViewModel: SettingsViewModel): BaseViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EditRoutineItemViewModel::class)
+    fun provideEditRoutineItemViewModel(editRoutineItemViewModel: EditRoutineItemViewModel): BaseViewModel
 }

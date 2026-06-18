@@ -9,4 +9,10 @@
     <string name="no_internet_connection">No internet connection</string>
 
     <string name="home_fragment">Home Fragment</string>
+    <string name="daily_routine">Daily Routine</string>
+    <string name="add_routine">Add Routine</string>
+    <string name="edit">Edit</string>
+    <string name="start_time">Start Time</string>
+    <string name="time_to_complete">Time To Complete</string>
+    <string name="save">Save</string>
 </resources>

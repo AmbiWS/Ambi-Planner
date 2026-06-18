@@ -5,4 +5,12 @@ import com.ambiws.ambiplanner.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     FragmentHomeBinding::inflate
-)
+) {
+
+    override fun setupListeners() {
+        super.setupListeners()
+        binding.ivAdd.setOnClickListener {
+            viewModel.navigateToEditRoutine()
+        }
+    }
+}
