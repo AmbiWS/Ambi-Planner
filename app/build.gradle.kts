@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.navigation.plugin)
+    alias(libs.plugins.ksp.plugin)
 }
 
 android {
@@ -62,7 +62,7 @@ dependencies {
 
     // DI
     implementation(libs.dagger)
-    kapt(libs.dagger.kapt)
+    ksp(libs.dagger.kapt)
 
     // Navigation
     implementation(libs.navigation.fragment)
@@ -79,7 +79,7 @@ dependencies {
 
     // Room
     implementation(libs.room)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     annotationProcessor(libs.room.compiler)
     implementation(libs.room.ktx)
 }
