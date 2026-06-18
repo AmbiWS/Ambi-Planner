@@ -3,6 +3,7 @@ package com.ambiws.ambiplanner
 import android.app.Application
 import com.ambiws.ambiplanner.core.di.components.AppComponent
 import com.ambiws.ambiplanner.core.di.components.DaggerAppComponent
+import com.ambiws.ambiplanner.core.di.modules.AppModule
 
 class App : Application() {
 
@@ -11,7 +12,9 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.create()
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 
     fun getAppComponent(): AppComponent {

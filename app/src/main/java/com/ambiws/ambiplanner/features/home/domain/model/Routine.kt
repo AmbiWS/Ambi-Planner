@@ -1,6 +1,6 @@
-package com.ambiws.ambiplanner.features.home.ui.routine.model
+package com.ambiws.ambiplanner.features.home.domain.model
 
-data class RoutineViewData(
+data class Routine(
     val id: Int?,
     val title: String,
     val description: String?,
