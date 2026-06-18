@@ -76,4 +76,10 @@ dependencies {
 
     // Calendar
     implementation(libs.calendar)
+
+    // Room
+    implementation(libs.room)
+    kapt(libs.room.compiler)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.room.ktx)
 }

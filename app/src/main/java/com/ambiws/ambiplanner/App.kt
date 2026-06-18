@@ -6,6 +6,7 @@ import com.ambiws.ambiplanner.core.di.components.DaggerAppComponent
 
 class App : Application() {
 
+    // TODO Add Pagination for educational purposes (paging3 and custom)
     private lateinit var appComponent: AppComponent
 
     override fun onCreate() {

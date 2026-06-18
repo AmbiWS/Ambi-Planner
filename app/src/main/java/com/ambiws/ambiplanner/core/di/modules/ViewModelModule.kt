@@ -4,7 +4,7 @@ import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.core.di.vm.ViewModelKey
 import com.ambiws.ambiplanner.features.calendar.ui.CalendarViewModel
 import com.ambiws.ambiplanner.features.dashboard.ui.DashboardViewModel
-import com.ambiws.ambiplanner.features.home.routine.ui.EditRoutineItemViewModel
+import com.ambiws.ambiplanner.features.home.ui.routine.EditRoutineItemViewModel
 import com.ambiws.ambiplanner.features.home.ui.HomeViewModel
 import com.ambiws.ambiplanner.features.settings.SettingsViewModel
 import dagger.Binds
