@@ -5,13 +5,15 @@ import com.ambiws.ambiplanner.core.di.modules.AppModule
 import com.ambiws.ambiplanner.core.di.modules.DatabaseModule
 import com.ambiws.ambiplanner.core.di.scopes.AppScope
 import com.ambiws.ambiplanner.features.home.data.dataSource.local.dao.RoutineDao
+import com.ambiws.ambiplanner.features.home.di.RoutineModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Component(
     modules = [
         AppModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        RoutineModule::class,
     ]
 )
 @Singleton

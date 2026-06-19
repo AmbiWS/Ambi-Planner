@@ -11,6 +11,7 @@ class EditRoutineItemViewModel @Inject constructor(val routineInteractor: Routin
     fun saveRoutine(routine: RoutineViewData) {
         launch {
             routineInteractor.insertAll(routine.toRoutine())
+            navigation.navigateBack()
         }
     }
 }
