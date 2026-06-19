@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
         AsyncListDifferDelegationAdapter(
             DefaultListDiffer<RoutineBaseItemModel>(),
             RoutineAdapterDelegate.routineAdapterDelegate { itemModel ->
-                // Navigate
+                viewModel.navigateToEditRoutine(isNewRoutine = false)
             },
         )
     }

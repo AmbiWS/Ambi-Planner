@@ -1,6 +1,7 @@
 package com.ambiws.ambiplanner.features.home.ui.routine
 
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.databinding.FragmentEditRoutineBinding
 import com.ambiws.ambiplanner.features.home.ui.routine.model.RoutineViewData
@@ -22,6 +23,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
     override fun setupUi() {
         super.setupUi()
         binding.tvTitle.text = if (args.isNewRoutine) "New Routine" else "Edit Routine"
+        binding.btnDelete.isVisible = !args.isNewRoutine
     }
 
     override fun setupListeners() {
@@ -112,6 +114,10 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
                     )
                 )
             }
+        }
+
+        binding.ivBack.setOnClickListener {
+            viewModel.navigateBack()
         }
     }
 }
