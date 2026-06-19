@@ -1,7 +1,9 @@
 package com.ambiws.ambiplanner.features.home.ui.routine
 
+import android.widget.Toast
 import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.databinding.FragmentEditRoutineBinding
+import com.ambiws.ambiplanner.features.home.ui.routine.model.RoutineViewData
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.Locale
@@ -10,8 +12,17 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
     FragmentEditRoutineBinding::inflate
 ) {
 
+    private val args: EditRoutineItemFragmentArgs by lazy {
+        EditRoutineItemFragmentArgs.fromBundle(requireArguments())
+    }
+
     var startTime : String? = null
     var timeToComplete : String? = null
+
+    override fun setupUi() {
+        super.setupUi()
+        binding.tvTitle.text = if (args.isNewRoutine) "New Routine" else "Edit Routine"
+    }
 
     override fun setupListeners() {
         super.setupListeners()
@@ -83,6 +94,23 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
             } else {
                 timeToComplete = null
                 binding.tvEstimateTime.text = ""
+            }
+        }
+
+        binding.btnSave.setOnClickListener {
+            if (binding.etTitle.text.isNullOrBlank()) {
+                // TODO Change Toast to Snackbar
+                Toast.makeText(requireContext(), "Title is required", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.saveRoutine(
+                    RoutineViewData(
+                        id = 0,
+                        title = binding.etTitle.text.toString(),
+                        description = binding.etDescription.text?.toString()?.takeIf { it.isNotBlank() },
+                        startTime = startTime,
+                        timeToComplete = timeToComplete,
+                    )
+                )
             }
         }
     }

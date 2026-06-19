@@ -5,9 +5,9 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor() : BaseViewModel() {
 
-    fun navigateToEditRoutine() {
+    fun navigateToEditRoutine(isNewRoutine: Boolean) {
         navigation.navigate(
-            HomeFragmentDirections.actionHomeFragmentToEditRoutineItemFragment()
+            HomeFragmentDirections.actionHomeFragmentToEditRoutineItemFragment(isNewRoutine)
         )
     }
 }

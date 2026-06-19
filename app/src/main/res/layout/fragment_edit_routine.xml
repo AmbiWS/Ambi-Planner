@@ -33,6 +33,7 @@
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/secondary_a60" />
@@ -54,6 +55,7 @@
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescription"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:background="@color/secondary_a60" />

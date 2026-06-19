@@ -27,3 +27,11 @@ fun RoutineViewData.toRoutine() = Routine(
     startTime = startTime,
     timeToComplete = timeToComplete,
 )
+
+fun Routine.toRoutineEntity() = RoutineEntity(
+    id = id ?: 0,
+    title = title,
+    description = description,
+    startTime = startTime,
+    timeToComplete = timeToComplete,
+)

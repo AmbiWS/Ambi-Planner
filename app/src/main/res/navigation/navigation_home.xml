@@ -16,5 +16,10 @@
     <fragment
         android:id="@+id/editRoutineItemFragment"
         android:name="com.ambiws.ambiplanner.features.home.ui.routine.EditRoutineItemFragment"
-        android:label="EditRoutineItemFragment" />
+        android:label="EditRoutineItemFragment">
+        <argument
+            android:name="isNewRoutine"
+            android:defaultValue="true"
+            app:argType="boolean" />
+    </fragment>
 </navigation>

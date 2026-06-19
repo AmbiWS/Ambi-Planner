@@ -10,7 +10,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     override fun setupListeners() {
         super.setupListeners()
         binding.ivAdd.setOnClickListener {
-            viewModel.navigateToEditRoutine()
+            viewModel.navigateToEditRoutine(isNewRoutine = true)
         }
     }
 }

@@ -8,6 +8,9 @@ import com.ambiws.ambiplanner.core.di.modules.AppModule
 class App : Application() {
 
     // TODO Add Pagination for educational purposes (paging3 and custom)
+    // TODO Implement scopes using dagger 2
+    // TODO Refactor code
+    // TODO Optimize processes
     private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
