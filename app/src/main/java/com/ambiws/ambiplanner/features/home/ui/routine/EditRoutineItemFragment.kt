@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.databinding.FragmentEditRoutineBinding
 import com.ambiws.ambiplanner.features.home.ui.routine.model.RoutineViewData
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import java.util.Locale
@@ -101,8 +102,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
 
         binding.btnSave.setOnClickListener {
             if (binding.etTitle.text.isNullOrBlank()) {
-                // TODO Change Toast to Snackbar
-                Toast.makeText(requireContext(), "Title is required", Toast.LENGTH_SHORT).show()
+                Snackbar.make(binding.root, "Title is required", Snackbar.LENGTH_LONG).show()
             } else {
                 viewModel.saveRoutine(
                     RoutineViewData(
