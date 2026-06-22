@@ -18,8 +18,9 @@
         android:name="com.ambiws.ambiplanner.features.home.ui.routine.EditRoutineItemFragment"
         android:label="EditRoutineItemFragment">
         <argument
-            android:name="isNewRoutine"
-            android:defaultValue="true"
-            app:argType="boolean" />
+            android:name="routine"
+            app:nullable="true"
+            android:defaultValue="@null"
+            app:argType="com.ambiws.ambiplanner.features.home.ui.list.RoutineItemModel" />
     </fragment>
 </navigation>

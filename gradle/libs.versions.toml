@@ -42,3 +42,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 navigation-plugin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigation" }
 ksp-plugin = {id = "com.google.devtools.ksp", version.ref = "ksp"}
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }

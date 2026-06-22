@@ -18,9 +18,9 @@ class HomeViewModel @Inject constructor(val routineInteractor: RoutineInteractor
         initRoutine()
     }
 
-    fun navigateToEditRoutine(isNewRoutine: Boolean) {
+    fun navigateToEditRoutine(routine: RoutineItemModel?) {
         navigation.navigate(
-            HomeFragmentDirections.actionHomeFragmentToEditRoutineItemFragment(isNewRoutine)
+            HomeFragmentDirections.actionHomeFragmentToEditRoutineItemFragment(routine)
         )
     }
 

@@ -5,11 +5,16 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.navigation.plugin)
     alias(libs.plugins.ksp.plugin)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
     namespace = "com.ambiws.ambiplanner"
     compileSdk = 36
+
+    configurations.all {
+        exclude(group = "org.jetbrains.kotlin", module = "kotlin-android-extensions-runtime")
+    }
 
     defaultConfig {
         applicationId = "com.ambiws.ambiplanner"

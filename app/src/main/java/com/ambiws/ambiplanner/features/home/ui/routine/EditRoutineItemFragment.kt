@@ -23,8 +23,16 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
 
     override fun setupUi() {
         super.setupUi()
-        binding.tvTitle.text = if (args.isNewRoutine) "New Routine" else "Edit Routine"
-        binding.btnDelete.isVisible = !args.isNewRoutine
+        binding.tvTitle.text = if (args.routine == null) "New Routine" else {
+            binding.etTitle.setText(args.routine?.title)
+            binding.etDescription.setText(args.routine?.description)
+            binding.cbEnableTime.isChecked = args.routine?.startTime != null
+            binding.cbEstimateTime.isChecked = args.routine?.timeToComplete != null
+            startTime = args.routine?.startTime
+            timeToComplete = args.routine?.timeToComplete
+            "Edit Routine"
+        }
+        binding.btnDelete.isVisible = args.routine != null
     }
 
     override fun setupListeners() {

@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
         AsyncListDifferDelegationAdapter(
             DefaultListDiffer<RoutineBaseItemModel>(),
             RoutineAdapterDelegate.routineAdapterDelegate { itemModel ->
-                viewModel.navigateToEditRoutine(isNewRoutine = false)
+                viewModel.navigateToEditRoutine(itemModel)
             },
         )
     }
@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     override fun setupListeners() {
         super.setupListeners()
         binding.ivAdd.setOnClickListener {
-            viewModel.navigateToEditRoutine(isNewRoutine = true)
+            viewModel.navigateToEditRoutine(null)
         }
     }
 
