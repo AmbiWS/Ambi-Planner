@@ -16,4 +16,5 @@
     <string name="time_to_complete">Time To Complete</string>
     <string name="save">Save</string>
     <string name="remove">Remove</string>
+    <string name="routines_list_is_empty">Routines list is empty.</string>
 </resources>

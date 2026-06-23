@@ -1,5 +1,6 @@
 package com.ambiws.ambiplanner.features.home.ui
 
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.base.UiState
@@ -43,6 +44,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     override fun setupObservers() {
         super.setupObservers()
         subscribe(viewModel.routineLiveData) {
+            binding.tvEmpty.isVisible = it.isEmpty()
             adapter.items = it
         }
         subscribe(viewModel.stateLiveEvent) {
