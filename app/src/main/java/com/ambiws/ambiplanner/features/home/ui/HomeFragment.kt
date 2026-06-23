@@ -16,7 +16,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     FragmentHomeBinding::inflate
 ) {
 
-    // TODO Handle empty list message
     private val adapter by lazy {
         AsyncListDifferDelegationAdapter(
             DefaultListDiffer<RoutineBaseItemModel>(),

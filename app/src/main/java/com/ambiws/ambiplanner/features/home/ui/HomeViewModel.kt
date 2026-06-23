@@ -6,7 +6,6 @@ import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.features.home.domain.RoutineInteractor
 import com.ambiws.ambiplanner.features.home.mapper.toItemModel
 import com.ambiws.ambiplanner.features.home.ui.list.RoutineItemModel
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(val routineInteractor: RoutineInteractor) : BaseViewModel() {
@@ -15,7 +14,7 @@ class HomeViewModel @Inject constructor(val routineInteractor: RoutineInteractor
     val routineLiveData: LiveData<List<RoutineItemModel>> = _routineLiveData
 
     init {
-        initRoutine()
+        initRoutineList()
     }
 
     fun navigateToEditRoutine(routine: RoutineItemModel?) {
@@ -24,14 +23,11 @@ class HomeViewModel @Inject constructor(val routineInteractor: RoutineInteractor
         )
     }
 
-    private fun initRoutine() {
+    private fun initRoutineList() {
         launch {
-            val routines = withContext(ioContext) {
-                routineInteractor.getAllRoutines().map {
-                    it.toItemModel()
-                }
+            routineInteractor.getAllRoutines().collect { routines ->
+                _routineLiveData.postValue(routines.map { it.toItemModel() })
             }
-            _routineLiveData.value = routines
         }
     }
 }
