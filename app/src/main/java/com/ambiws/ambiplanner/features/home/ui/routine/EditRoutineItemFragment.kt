@@ -32,6 +32,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
             timeToComplete = args.routine?.timeToComplete
             "Edit Routine"
         }
+        binding.tvTitle.text = if (args.routine == null) "New Routine" else "Edit Routine"
         binding.btnDelete.isVisible = args.routine != null
     }
 
@@ -126,6 +127,14 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
 
         binding.ivBack.setOnClickListener {
             viewModel.navigateBack()
+        }
+        
+        binding.btnDelete.setOnClickListener {
+            args.routine?.let {
+                viewModel.deleteRoutine(it)
+            } ?: run {
+                Snackbar.make(binding.root, "Routine is null", Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 }

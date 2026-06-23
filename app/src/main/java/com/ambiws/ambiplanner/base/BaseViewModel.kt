@@ -67,7 +67,7 @@ abstract class BaseViewModel : ViewModel() {
                 navigation.navigateBackToStart(hideKeyboard = true)
             }
             else -> {
-                _stateLiveEvent.value = UiState.Error(exceptionParser.parseError(throwable))
+                _stateLiveEvent.postValue(UiState.Error(exceptionParser.parseError(throwable)))
             }
         }
     }
@@ -83,10 +83,10 @@ abstract class BaseViewModel : ViewModel() {
     ): Job {
         return viewModelScope.launch(context = coroutineContext + defaultExceptionHandler) {
             if (showDefaultLoader) {
-                _stateLiveEvent.value = UiState.Loading
+                _stateLiveEvent.postValue(UiState.Loading)
             }
             this.block()
-            _stateLiveEvent.value = UiState.Success
+            _stateLiveEvent.postValue(UiState.Success)
         }
     }
 }

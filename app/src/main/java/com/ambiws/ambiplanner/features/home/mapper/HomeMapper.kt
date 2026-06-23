@@ -45,3 +45,11 @@ fun Routine.toItemModel() = RoutineItemModel(
     startTime = startTime,
     timeToComplete = timeToComplete,
 )
+
+fun RoutineItemModel.toRoutine() = Routine(
+    id = id,
+    title = title,
+    description = description,
+    startTime = startTime,
+    timeToComplete = timeToComplete,
+)
