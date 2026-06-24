@@ -113,9 +113,10 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
             if (binding.etTitle.text.isNullOrBlank()) {
                 Snackbar.make(binding.root, "Title is required", Snackbar.LENGTH_LONG).show()
             } else {
+                val id = if (args.routine == null) 0 else args.routine?.id
                 viewModel.saveRoutine(
                     RoutineViewData(
-                        id = 0,
+                        id = id,
                         title = binding.etTitle.text.toString(),
                         description = binding.etDescription.text?.toString()?.takeIf { it.isNotBlank() },
                         startTime = startTime,
