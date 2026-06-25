@@ -10,4 +10,8 @@
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
+
+    <style name="ThemeOverlay.App.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">@color/black</item>
+    </style>
 </resources>

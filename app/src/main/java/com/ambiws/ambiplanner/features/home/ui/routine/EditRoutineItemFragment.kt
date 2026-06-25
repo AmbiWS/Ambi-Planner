@@ -41,6 +41,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
 
         val pickerStart =
             MaterialTimePicker.Builder()
+                .setTheme(com.ambiws.ambiplanner.R.style.ThemeOverlay_App_TimePicker)
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(12)
                 .setMinute(0)
@@ -49,6 +50,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
 
         val pickerTimeToComplete =
             MaterialTimePicker.Builder()
+                .setTheme(com.ambiws.ambiplanner.R.style.ThemeOverlay_App_TimePicker)
                 .setTimeFormat(TimeFormat.CLOCK_24H)
                 .setHour(1)
                 .setMinute(0)
