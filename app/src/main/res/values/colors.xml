@@ -4,10 +4,13 @@
     <color name="secondary">#F5FDB9</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="lt_red">#FF6863</color>
+    <color name="er_red">#FF6863</color>
     <color name="gray">#E5E7EB</color>
 
     <color name="divider">#33000000</color>
     <color name="text_secondary">#808080</color>
     <color name="secondary_a60">#B3F5FDB9</color>
+    <color name="ltgreen">#404CAF50</color>
+    <color name="ltyellow">#40FFEB3B</color>
+    <color name="ltred">#40F44336</color>
 </resources>

@@ -71,7 +71,7 @@ abstract class BaseFragment<VM: BaseViewModel, VB : ViewBinding>(
                 }
                 is UiState.Error -> {
                     Snackbar.make(binding.root, state.error.message, Snackbar.LENGTH_SHORT)
-                        .setTextColor(requireContext().getColor(R.color.lt_red))
+                        .setTextColor(requireContext().getColor(R.color.er_red))
                         .show()
                 }
             }
