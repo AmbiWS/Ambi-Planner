@@ -1,6 +1,9 @@
 package com.ambiws.ambiplanner.features.home.ui.list
 
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.ambiws.ambiplanner.R
 import com.ambiws.ambiplanner.databinding.ItemRoutineBinding
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
@@ -31,7 +34,7 @@ object RoutineAdapterDelegate {
                         tvTimeLeft.isVisible = true
                         val timerRunnable = object : Runnable {
                             override fun run() {
-                                tvTimeLeft.text = getTimeLeft(item.startTime!!, item.timeToComplete)
+                                tvTimeLeft.text = getTimeLeft(item.startTime!!, item.timeToComplete, binding.tvTimeLeft)
                                 root.postDelayed(this, 1000)
                             }
                         }
@@ -48,7 +51,7 @@ object RoutineAdapterDelegate {
         }
     }
 
-    private fun getTimeLeft(startTime: String, timeToComplete: String?): String {
+    private fun getTimeLeft(startTime: String, timeToComplete: String?, textView: TextView): String {
         val now = Calendar.getInstance()
         val startCal = Calendar.getInstance().apply {
             val parts = startTime.split(":")
@@ -68,13 +71,18 @@ object RoutineAdapterDelegate {
         return when {
             now.before(startCal) -> {
                 val diff = startCal.timeInMillis - now.timeInMillis
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.text_secondary))
                 "Time left: ${formatMillis(diff)}"
             }
             now.before(endCal) -> {
                 val diff = endCal.timeInMillis - now.timeInMillis
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.text_secondary))
                 "Time left: ${formatMillis(diff)}"
             }
-            else -> "Need to be done"
+            else -> {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.ltred))
+                "Need to be done"
+            }
         }
     }
 
