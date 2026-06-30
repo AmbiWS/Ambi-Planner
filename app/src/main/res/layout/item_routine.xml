@@ -82,4 +82,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvStart"
         tools:text="Estimated: 30m" />
+
+    <CheckBox
+        android:id="@+id/cbDone"
+        style="@style/TextSecondary14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/done"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCompletionTime"
+        app:layout_constraintEnd_toEndOf="@+id/tvTimeLeft"
+        app:layout_constraintTop_toTopOf="@+id/tvCompletionTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>
