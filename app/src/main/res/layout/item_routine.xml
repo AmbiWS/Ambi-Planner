@@ -88,10 +88,10 @@
         style="@style/TextSecondary14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="4dp"
+        android:scaleY="0.8"
+        android:scaleX="0.8"
         android:text="@string/done"
-        android:textSize="11sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvCompletionTime"
         app:layout_constraintEnd_toEndOf="@+id/tvTimeLeft"
         app:layout_constraintTop_toTopOf="@+id/tvCompletionTime" />
