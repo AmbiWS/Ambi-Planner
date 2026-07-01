@@ -13,7 +13,8 @@ import java.util.Locale
 object RoutineAdapterDelegate {
 
     fun routineAdapterDelegate(
-        onClickListener: (RoutineItemModel) -> Unit
+        onClickListener: (RoutineItemModel) -> Unit,
+        onDoneChanged: (RoutineItemModel, Boolean) -> Unit
     ): AdapterDelegate<List<RoutineBaseItemModel>> {
         return adapterDelegateViewBinding<RoutineItemModel, RoutineBaseItemModel, ItemRoutineBinding>(
             { layoutInflater, parent ->
@@ -27,6 +28,12 @@ object RoutineAdapterDelegate {
                     tvStart.apply { isVisible = item.startTime?.also { text = it } != null }
                     tvCompletionTime.apply { isVisible = item.timeToComplete?.also { text = it } != null }
                     ivEdit.setOnClickListener { onClickListener.invoke(item) }
+
+                    cbDone.setOnCheckedChangeListener(null)
+                    cbDone.isChecked = item.isDone
+                    cbDone.setOnCheckedChangeListener { _, isChecked ->
+                        onDoneChanged(item, isChecked)
+                    }
 
                     // Live countdown update
                     (root.tag as? Runnable)?.let { root.removeCallbacks(it) }
@@ -80,7 +87,7 @@ object RoutineAdapterDelegate {
                 "Time left: ${formatMillis(diff)}"
             }
             else -> {
-                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.ltred))
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.er_red))
                 "Need to be done"
             }
         }

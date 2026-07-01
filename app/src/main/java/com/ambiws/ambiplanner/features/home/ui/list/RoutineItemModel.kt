@@ -8,9 +8,10 @@ interface RoutineBaseItemModel : ItemModel
 
 @Parcelize
 data class RoutineItemModel(
-    val id: Int,
+    override val id: Int,
     val title: String,
     val description: String?,
     val startTime: String?,
     val timeToComplete: String?,
+    val isDone: Boolean = false,
 ) : RoutineBaseItemModel, Parcelable

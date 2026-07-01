@@ -12,6 +12,7 @@ fun RoutineEntity.toRoutine() = Routine(
     description = description,
     startTime = startTime,
     timeToComplete = timeToComplete,
+    isDone = isDone,
 )
 
 fun Routine.toViewData() = RoutineViewData(
@@ -20,6 +21,7 @@ fun Routine.toViewData() = RoutineViewData(
     description = description,
     startTime = startTime,
     timeToComplete = timeToComplete,
+    isDone = isDone,
 )
 
 fun RoutineViewData.toRoutine() = Routine(
@@ -28,6 +30,7 @@ fun RoutineViewData.toRoutine() = Routine(
     description = description,
     startTime = startTime,
     timeToComplete = timeToComplete,
+    isDone = isDone,
 )
 
 fun Routine.toRoutineEntity() = RoutineEntity(
@@ -36,6 +39,7 @@ fun Routine.toRoutineEntity() = RoutineEntity(
     description = description,
     startTime = startTime,
     timeToComplete = timeToComplete,
+    isDone = isDone,
 )
 
 fun Routine.toItemModel() = RoutineItemModel(
@@ -44,6 +48,7 @@ fun Routine.toItemModel() = RoutineItemModel(
     description = description,
     startTime = startTime,
     timeToComplete = timeToComplete,
+    isDone = isDone,
 )
 
 fun RoutineItemModel.toRoutine() = Routine(
@@ -52,4 +57,5 @@ fun RoutineItemModel.toRoutine() = Routine(
     description = description,
     startTime = startTime,
     timeToComplete = timeToComplete,
+    isDone = isDone,
 )

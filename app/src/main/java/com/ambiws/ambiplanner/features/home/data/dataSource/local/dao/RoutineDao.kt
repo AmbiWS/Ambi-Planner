@@ -11,7 +11,7 @@ import androidx.room.OnConflictStrategy
 @Dao
 interface RoutineDao {
 
-    @Query("SELECT * FROM RoutineEntity")
+    @Query("SELECT * FROM RoutineEntity ORDER BY is_done ASC")
     fun getAllRoutines(): Flow<List<RoutineEntity>>
 
     @Query("SELECT * FROM RoutineEntity WHERE id = (:routineId)")

@@ -11,4 +11,5 @@ data class RoutineEntity(
     @ColumnInfo(name = "description") val description: String?,
     @ColumnInfo(name = "start_time") val startTime: String?,
     @ColumnInfo(name = "time_to_complete") val timeToComplete: String?,
+    @ColumnInfo(name = "is_done") val isDone: Boolean = false,
 )

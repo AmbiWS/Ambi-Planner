@@ -6,4 +6,5 @@ data class RoutineViewData(
     val description: String?,
     val startTime: String?,
     val timeToComplete: String?,
+    val isDone: Boolean = false,
 )

@@ -21,9 +21,14 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(
     private val adapter by lazy {
         AsyncListDifferDelegationAdapter(
             DefaultListDiffer<RoutineBaseItemModel>(),
-            RoutineAdapterDelegate.routineAdapterDelegate { itemModel ->
-                viewModel.navigateToEditRoutine(itemModel)
-            },
+            RoutineAdapterDelegate.routineAdapterDelegate(
+                onClickListener = { itemModel ->
+                    viewModel.navigateToEditRoutine(itemModel)
+                },
+                onDoneChanged = { itemModel, isDone ->
+                    viewModel.onRoutineDoneChanged(itemModel, isDone)
+                }
+            ),
         )
     }
 

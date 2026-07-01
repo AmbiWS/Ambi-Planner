@@ -3,4 +3,6 @@ package com.ambiws.ambiplanner.base.list
 /**
  * Default interface for any list adapter
  */
-interface ItemModel
+interface ItemModel {
+    val id: Int
+}

@@ -11,6 +11,8 @@ class App : Application() {
     // TODO Implement scopes using dagger 2
     // TODO Refactor code
     // TODO Optimize processes
+    // TODO Implement custom listdiffer and itemmodel
+    // TODO Add time calculation ext and refactor code
     private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
