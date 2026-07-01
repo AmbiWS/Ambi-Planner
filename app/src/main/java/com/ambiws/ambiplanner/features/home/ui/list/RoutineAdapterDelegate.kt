@@ -25,7 +25,7 @@ object RoutineAdapterDelegate {
                 with (binding) {
                     tvTitle.text = item.title
                     tvDescription.apply { isVisible = item.description?.also { text = it } != null }
-                    tvStart.apply { isVisible = item.startTime?.also { text = it } != null }
+                    tvStart.apply { isVisible = item.startTime?.also { text = context.getString(R.string.start_at, it) } != null }
                     tvCompletionTime.apply { isVisible = item.timeToComplete?.also { text = it } != null }
                     ivEdit.setOnClickListener { onClickListener.invoke(item) }
 

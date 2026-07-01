@@ -22,4 +22,5 @@
     <string name="mixed_days_0">Mixed days: 0</string>
     <string name="skipped_days_0">Skipped Days: 0</string>
     <string name="done">Done</string>
+    <string name="start_at">Start at %s</string>
 </resources>
