@@ -22,31 +22,51 @@ object RoutineAdapterDelegate {
             }
         ) {
             bind {
-                with (binding) {
+                with(binding) {
                     tvTitle.text = item.title
                     tvDescription.apply { isVisible = item.description?.also { text = it } != null }
-                    tvStart.apply { isVisible = item.startTime?.also { text = context.getString(R.string.start_at, it) } != null }
-                    tvCompletionTime.apply { isVisible = item.timeToComplete?.also { text = it } != null }
+                    tvStart.apply {
+                        isVisible = item.startTime?.also {
+                            text = context.getString(R.string.start_at, it)
+                        } != null
+                    }
+                    tvCompletionTime.apply {
+                        isVisible = item.timeToComplete?.also { text = it } != null
+                    }
                     ivEdit.setOnClickListener { onClickListener.invoke(item) }
 
                     cbDone.setOnCheckedChangeListener(null)
                     cbDone.isChecked = item.isDone
+
+                    // Apply initial "Done" state
+                    binding.routineHolder.alpha = if (item.isDone) 0.3f else 1f
+
                     cbDone.setOnCheckedChangeListener { _, isChecked ->
                         onDoneChanged(item, isChecked)
+                        // Update UI immediately
+                        binding.routineHolder.alpha = if (isChecked) 0.3f else 1f
+                        tvTimeLeft.isVisible = !isChecked && item.startTime != null
+                        if (isChecked) {
+                            (binding.root.tag as? Runnable)?.let { binding.root.removeCallbacks(it) }
+                        }
                     }
 
                     // Live countdown update
-                    (root.tag as? Runnable)?.let { root.removeCallbacks(it) }
-                    if (item.startTime != null) {
+                    (binding.root.tag as? Runnable)?.let { binding.root.removeCallbacks(it) }
+                    if (item.startTime != null && !item.isDone) {
                         tvTimeLeft.isVisible = true
                         val timerRunnable = object : Runnable {
                             override fun run() {
-                                tvTimeLeft.text = getTimeLeft(item.startTime!!, item.timeToComplete, binding.tvTimeLeft)
-                                root.postDelayed(this, 1000)
+                                tvTimeLeft.text = getTimeLeft(
+                                    item.startTime!!,
+                                    item.timeToComplete,
+                                    binding.tvTimeLeft
+                                )
+                                binding.root.postDelayed(this, 1000)
                             }
                         }
-                        root.tag = timerRunnable
-                        root.post(timerRunnable)
+                        binding.root.tag = timerRunnable
+                        binding.root.post(timerRunnable)
                     } else {
                         tvTimeLeft.isVisible = false
                     }
@@ -58,7 +78,11 @@ object RoutineAdapterDelegate {
         }
     }
 
-    private fun getTimeLeft(startTime: String, timeToComplete: String?, textView: TextView): String {
+    private fun getTimeLeft(
+        startTime: String,
+        timeToComplete: String?,
+        textView: TextView
+    ): String {
         val now = Calendar.getInstance()
         val startCal = Calendar.getInstance().apply {
             val parts = startTime.split(":")
@@ -78,14 +102,26 @@ object RoutineAdapterDelegate {
         return when {
             now.before(startCal) -> {
                 val diff = startCal.timeInMillis - now.timeInMillis
-                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.text_secondary))
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        textView.context,
+                        R.color.text_secondary
+                    )
+                )
                 "Time left: ${formatMillis(diff)}"
             }
+
             now.before(endCal) -> {
                 val diff = endCal.timeInMillis - now.timeInMillis
-                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.text_secondary))
+                textView.setTextColor(
+                    ContextCompat.getColor(
+                        textView.context,
+                        R.color.text_secondary
+                    )
+                )
                 "Time left: ${formatMillis(diff)}"
             }
+
             else -> {
                 textView.setTextColor(ContextCompat.getColor(textView.context, R.color.er_red))
                 "Need to be done"
