@@ -7,4 +7,5 @@ data class Routine(
     val startTime: String?,
     val timeToComplete: String?,
     val isDone: Boolean = false,
+    val isNotificationEnabled: Boolean = false,
 )

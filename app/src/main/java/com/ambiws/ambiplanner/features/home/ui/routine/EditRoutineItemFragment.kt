@@ -1,6 +1,11 @@
 package com.ambiws.ambiplanner.features.home.ui.routine
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.ambiws.ambiplanner.base.BaseFragment
 import com.ambiws.ambiplanner.databinding.FragmentEditRoutineBinding
@@ -13,6 +18,14 @@ import java.util.Locale
 class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentEditRoutineBinding>(
     FragmentEditRoutineBinding::inflate
 ) {
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (!isGranted) {
+                binding.cbNotification.isChecked = false
+                Toast.makeText(requireContext(), "Permission denied for notifications", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private val args: EditRoutineItemFragmentArgs by lazy {
         EditRoutineItemFragmentArgs.fromBundle(requireArguments())
@@ -28,6 +41,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
             binding.etDescription.setText(args.routine?.description)
             binding.cbEnableTime.isChecked = args.routine?.startTime != null
             binding.cbEstimateTime.isChecked = args.routine?.timeToComplete != null
+            binding.cbNotification.isChecked = args.routine?.isNotificationEnabled == true
             startTime = args.routine?.startTime
             timeToComplete = args.routine?.timeToComplete
             "Edit Routine"
@@ -111,6 +125,20 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
             }
         }
 
+        binding.cbNotification.setOnCheckedChangeListener { _, bool ->
+            if (bool) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.POST_NOTIFICATIONS
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                }
+            }
+        }
+
         binding.btnSave.setOnClickListener {
             if (binding.etTitle.text.isNullOrBlank()) {
                 Snackbar.make(binding.root, "Title is required", Snackbar.LENGTH_LONG).show()
@@ -123,6 +151,7 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
                         description = binding.etDescription.text?.toString()?.takeIf { it.isNotBlank() },
                         startTime = startTime,
                         timeToComplete = timeToComplete,
+                        isNotificationEnabled = binding.cbNotification.isChecked
                     )
                 )
             }

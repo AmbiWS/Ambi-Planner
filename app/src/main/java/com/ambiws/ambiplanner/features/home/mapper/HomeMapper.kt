@@ -13,6 +13,7 @@ fun RoutineEntity.toRoutine() = Routine(
     startTime = startTime,
     timeToComplete = timeToComplete,
     isDone = isDone,
+    isNotificationEnabled = isNotificationEnabled,
 )
 
 fun Routine.toViewData() = RoutineViewData(
@@ -22,6 +23,7 @@ fun Routine.toViewData() = RoutineViewData(
     startTime = startTime,
     timeToComplete = timeToComplete,
     isDone = isDone,
+    isNotificationEnabled = isNotificationEnabled,
 )
 
 fun RoutineViewData.toRoutine() = Routine(
@@ -31,6 +33,7 @@ fun RoutineViewData.toRoutine() = Routine(
     startTime = startTime,
     timeToComplete = timeToComplete,
     isDone = isDone,
+    isNotificationEnabled = isNotificationEnabled,
 )
 
 fun Routine.toRoutineEntity() = RoutineEntity(
@@ -40,6 +43,7 @@ fun Routine.toRoutineEntity() = RoutineEntity(
     startTime = startTime,
     timeToComplete = timeToComplete,
     isDone = isDone,
+    isNotificationEnabled = isNotificationEnabled,
 )
 
 fun Routine.toItemModel() = RoutineItemModel(
@@ -49,6 +53,7 @@ fun Routine.toItemModel() = RoutineItemModel(
     startTime = startTime,
     timeToComplete = timeToComplete,
     isDone = isDone,
+    isNotificationEnabled = isNotificationEnabled,
 )
 
 fun RoutineItemModel.toRoutine() = Routine(
@@ -58,4 +63,5 @@ fun RoutineItemModel.toRoutine() = Routine(
     startTime = startTime,
     timeToComplete = timeToComplete,
     isDone = isDone,
+    isNotificationEnabled = isNotificationEnabled,
 )

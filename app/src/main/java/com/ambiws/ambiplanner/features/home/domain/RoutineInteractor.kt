@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 interface RoutineInteractor {
     fun getAllRoutines(): Flow<List<Routine>>
     suspend fun getRoutine(routineId: Int): Routine
-    suspend fun insertAll(vararg routines: Routine)
+    suspend fun insertAll(vararg routines: Routine): List<Long>
     suspend fun delete(routine: Routine)
 }
 
@@ -27,8 +27,8 @@ class RoutineInteractorImpl @Inject constructor(val routineDataSource: RoutineDa
         return routineDataSource.getRoutine(routineId).toRoutine()
     }
 
-    override suspend fun insertAll(vararg routines: Routine) {
-        routineDataSource.insertAll(*routines.map { it.toRoutineEntity() }.toTypedArray())
+    override suspend fun insertAll(vararg routines: Routine): List<Long> {
+        return routineDataSource.insertAll(*routines.map { it.toRoutineEntity() }.toTypedArray())
     }
 
     override suspend fun delete(routine: Routine) {

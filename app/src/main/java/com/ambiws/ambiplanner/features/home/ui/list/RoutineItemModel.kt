@@ -14,4 +14,5 @@ data class RoutineItemModel(
     val startTime: String?,
     val timeToComplete: String?,
     val isDone: Boolean = false,
+    val isNotificationEnabled: Boolean = false,
 ) : RoutineBaseItemModel, Parcelable

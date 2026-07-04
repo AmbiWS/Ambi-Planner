@@ -18,7 +18,7 @@ interface RoutineDao {
     suspend fun getRoutine(routineId: Int): RoutineEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg routines: RoutineEntity)
+    suspend fun insertAll(vararg routines: RoutineEntity): List<Long>
 
     @Delete
     suspend fun delete(routine: RoutineEntity)

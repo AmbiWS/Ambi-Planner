@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface RoutineDataSource {
     fun getAllRoutines(): Flow<List<RoutineEntity>>
     suspend fun getRoutine(routineId: Int): RoutineEntity
-    suspend fun insertAll(vararg routines: RoutineEntity)
+    suspend fun insertAll(vararg routines: RoutineEntity): List<Long>
     suspend fun delete(routine: RoutineEntity)
 }
 
@@ -22,8 +22,8 @@ class RoutineDataSourceImpl @Inject constructor(val routineDao: RoutineDao) : Ro
         return routineDao.getRoutine(routineId)
     }
 
-    override suspend fun insertAll(vararg routines: RoutineEntity) {
-        routineDao.insertAll(*routines)
+    override suspend fun insertAll(vararg routines: RoutineEntity): List<Long> {
+        return routineDao.insertAll(*routines)
     }
 
     override suspend fun delete(routine: RoutineEntity) {

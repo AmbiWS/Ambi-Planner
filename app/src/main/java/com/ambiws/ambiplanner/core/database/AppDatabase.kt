@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.ambiws.ambiplanner.features.home.data.dataSource.local.dao.RoutineDao
 import com.ambiws.ambiplanner.features.home.data.dataSource.local.model.RoutineEntity
 
-@Database(entities = [RoutineEntity::class], version = 2)
+@Database(entities = [RoutineEntity::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun routineDao(): RoutineDao
 }
