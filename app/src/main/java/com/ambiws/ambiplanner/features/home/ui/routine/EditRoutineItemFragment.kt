@@ -39,6 +39,8 @@ class EditRoutineItemFragment : BaseFragment<EditRoutineItemViewModel, FragmentE
         binding.tvTitle.text = if (args.routine == null) "New Routine" else {
             binding.etTitle.setText(args.routine?.title)
             binding.etDescription.setText(args.routine?.description)
+            binding.tvStartTime.text = args.routine?.startTime
+            binding.tvEstimateTime.text = args.routine?.timeToComplete
             binding.cbEnableTime.isChecked = args.routine?.startTime != null
             binding.cbEstimateTime.isChecked = args.routine?.timeToComplete != null
             binding.cbNotification.isChecked = args.routine?.isNotificationEnabled == true
