@@ -31,7 +31,7 @@ object RoutineAdapterDelegate {
                         } != null
                     }
                     tvCompletionTime.apply {
-                        isVisible = item.timeToComplete?.also { text = it } != null
+                        isVisible = item.timeToComplete?.also { text = "$it on Completion" } != null
                     }
                     ivEdit.setOnClickListener { onClickListener.invoke(item) }
 
@@ -59,7 +59,6 @@ object RoutineAdapterDelegate {
                             override fun run() {
                                 tvTimeLeft.text = getTimeLeft(
                                     item.startTime!!,
-                                    item.timeToComplete,
                                     binding.tvTimeLeft
                                 )
                                 binding.root.postDelayed(this, 1000)
@@ -80,7 +79,6 @@ object RoutineAdapterDelegate {
 
     private fun getTimeLeft(
         startTime: String,
-        timeToComplete: String?,
         textView: TextView
     ): String {
         val now = Calendar.getInstance()
@@ -92,11 +90,6 @@ object RoutineAdapterDelegate {
                 set(Calendar.SECOND, 0)
                 set(Calendar.MILLISECOND, 0)
             }
-        }
-
-        val durationMillis = parseDuration(timeToComplete)
-        val endCal = (startCal.clone() as Calendar).apply {
-            add(Calendar.MILLISECOND, durationMillis.toInt())
         }
 
         return when {
@@ -111,32 +104,11 @@ object RoutineAdapterDelegate {
                 "Time left: ${formatMillis(diff)}"
             }
 
-            now.before(endCal) -> {
-                val diff = endCal.timeInMillis - now.timeInMillis
-                textView.setTextColor(
-                    ContextCompat.getColor(
-                        textView.context,
-                        R.color.text_secondary
-                    )
-                )
-                "Time left: ${formatMillis(diff)}"
-            }
-
             else -> {
                 textView.setTextColor(ContextCompat.getColor(textView.context, R.color.er_red))
                 "Need to be done"
             }
         }
-    }
-
-    private fun parseDuration(timeToComplete: String?): Long {
-        if (timeToComplete == null) return 0
-        val regex = "(\\d+)h (\\d+)m".toRegex()
-        val matchResult = regex.find(timeToComplete)
-        return if (matchResult != null) {
-            val (h, m) = matchResult.destructured
-            (h.toLong() * 3600 + m.toLong() * 60) * 1000
-        } else 0
     }
 
     private fun formatMillis(millis: Long): String {

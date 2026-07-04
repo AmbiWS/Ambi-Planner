@@ -17,7 +17,7 @@
     <string name="save">Save</string>
     <string name="remove">Remove</string>
     <string name="routines_list_is_empty">Routines list is empty.</string>
-    <string name="total_time_today">%1$dh %2$dm Today</string>
+    <string name="total_time_today">%1$dh %2$dm Today Total</string>
     <string name="finished_days_0">Finished days: 0</string>
     <string name="mixed_days_0">Mixed days: 0</string>
     <string name="skipped_days_0">Skipped Days: 0</string>

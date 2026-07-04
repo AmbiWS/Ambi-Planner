@@ -29,7 +29,7 @@ class AlarmHelper(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val triggerTime = calculateTriggerTime(routine.startTime, routine.timeToComplete)
+        val triggerTime = calculateTriggerTime(routine.startTime)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager?.canScheduleExactAlarms() == true) {
@@ -65,20 +65,13 @@ class AlarmHelper(private val context: Context) {
         alarmManager?.cancel(pendingIntent)
     }
 
-    private fun calculateTriggerTime(startTime: String, timeToComplete: String?): Long {
+    private fun calculateTriggerTime(startTime: String): Long {
         val calendar = Calendar.getInstance()
         val parts = startTime.split(":")
         calendar.set(Calendar.HOUR_OF_DAY, parts[0].toInt())
         calendar.set(Calendar.MINUTE, parts[1].toInt())
         calendar.set(Calendar.SECOND, 0)
         calendar.set(Calendar.MILLISECOND, 0)
-
-        timeToComplete?.let {
-            val h = it.substringBefore("h").trim().toIntOrNull() ?: 0
-            val m = it.substringAfter("h").substringBefore("m").trim().toIntOrNull() ?: 0
-            calendar.add(Calendar.HOUR_OF_DAY, h)
-            calendar.add(Calendar.MINUTE, m)
-        }
 
         if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1)

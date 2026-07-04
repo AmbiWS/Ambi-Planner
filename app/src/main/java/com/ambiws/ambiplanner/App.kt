@@ -7,13 +7,13 @@ import com.ambiws.ambiplanner.core.di.modules.AppModule
 
 class App : Application() {
 
-    // TODO Fix bug, when timer setting 1 hour instead of 24
     // TODO Add Pagination for educational purposes (paging3 and custom)
     // TODO Implement scopes using dagger 2
     // TODO Refactor code
     // TODO Optimize processes
     // TODO Implement custom listdiffer and itemmodel
     // TODO Add time calculation ext and refactor code
+    // TODO Optimize and refactor AI code
     private lateinit var appComponent: AppComponent
 
     override fun onCreate() {

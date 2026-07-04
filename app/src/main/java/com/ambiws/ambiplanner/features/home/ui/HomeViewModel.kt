@@ -77,12 +77,8 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-        val durationMillis = parseDuration(timeToComplete)
-        val endMillis = startCal.timeInMillis + durationMillis
-
         return when {
-            now >= endMillis -> -1L
-            now >= startCal.timeInMillis -> endMillis - now
+            now >= startCal.timeInMillis -> -1L
             else -> startCal.timeInMillis - now
         }
     }
