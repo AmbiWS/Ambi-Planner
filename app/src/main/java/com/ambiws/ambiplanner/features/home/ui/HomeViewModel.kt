@@ -3,6 +3,7 @@ package com.ambiws.ambiplanner.features.home.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ambiws.ambiplanner.base.BaseViewModel
+import com.ambiws.ambiplanner.core.util.AlarmHelper
 import com.ambiws.ambiplanner.features.home.domain.RoutineInteractor
 import com.ambiws.ambiplanner.features.home.mapper.toItemModel
 import com.ambiws.ambiplanner.features.home.mapper.toRoutine
@@ -10,7 +11,10 @@ import com.ambiws.ambiplanner.features.home.ui.list.RoutineItemModel
 import java.util.Calendar
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(val routineInteractor: RoutineInteractor) : BaseViewModel() {
+class HomeViewModel @Inject constructor(
+    private val routineInteractor: RoutineInteractor,
+    private val alarmHelper: AlarmHelper
+) : BaseViewModel() {
 
     private val _routineLiveData = MutableLiveData<List<RoutineItemModel>>()
     val routineLiveData: LiveData<List<RoutineItemModel>> = _routineLiveData
@@ -21,7 +25,16 @@ class HomeViewModel @Inject constructor(val routineInteractor: RoutineInteractor
 
     fun onRoutineDoneChanged(routine: RoutineItemModel, isDone: Boolean) {
         launch {
-            routineInteractor.insertAll(routine.copy(isDone = isDone).toRoutine())
+            val updatedRoutine = routine.copy(isDone = isDone)
+            routineInteractor.insertAll(updatedRoutine.toRoutine())
+
+            if (updatedRoutine.isNotificationEnabled) {
+                if (isDone) {
+                    alarmHelper.cancelAlarm(updatedRoutine.id)
+                } else {
+                    alarmHelper.scheduleAlarm(updatedRoutine.toRoutine())
+                }
+            }
         }
     }
 

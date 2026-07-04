@@ -7,6 +7,7 @@ import com.ambiws.ambiplanner.core.di.modules.AppModule
 
 class App : Application() {
 
+    // TODO Fix bug, when timer setting 1 hour instead of 24
     // TODO Add Pagination for educational purposes (paging3 and custom)
     // TODO Implement scopes using dagger 2
     // TODO Refactor code
