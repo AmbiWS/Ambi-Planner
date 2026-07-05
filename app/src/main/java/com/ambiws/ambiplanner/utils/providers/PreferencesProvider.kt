@@ -1,6 +1,7 @@
 package com.ambiws.ambiplanner.utils.providers
 
 import android.content.Context
+import com.ambiws.ambiplanner.features.home.domain.model.DailySuccess
 
 interface PreferencesProvider {
 
@@ -25,6 +26,10 @@ interface PreferencesProvider {
     fun clearAll()
 
     fun clear(key: String)
+
+    fun saveDailySuccess(date: String, success: DailySuccess)
+
+    fun getDailySuccess(date: String): DailySuccess
 }
 
 class PreferencesProviderImpl(context: Context) : PreferencesProvider {
@@ -76,7 +81,17 @@ class PreferencesProviderImpl(context: Context) : PreferencesProvider {
         sharedPreferences.edit().remove(key).apply()
     }
 
+    override fun saveDailySuccess(date: String, success: DailySuccess) {
+        saveInt(DAILY_SUCCESS_PREFIX + date, success.value)
+    }
+
+    override fun getDailySuccess(date: String): DailySuccess {
+        val value = getInt(DAILY_SUCCESS_PREFIX + date)
+        return DailySuccess.fromInt(value)
+    }
+
     companion object {
         private const val PREFERENCES_NAME = "ap_preferences"
+        private const val DAILY_SUCCESS_PREFIX = "daily_success_"
     }
 }

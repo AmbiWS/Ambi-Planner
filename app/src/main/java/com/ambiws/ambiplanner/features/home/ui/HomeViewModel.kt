@@ -7,13 +7,18 @@ import com.ambiws.ambiplanner.core.util.AlarmHelper
 import com.ambiws.ambiplanner.features.home.domain.RoutineInteractor
 import com.ambiws.ambiplanner.features.home.mapper.toItemModel
 import com.ambiws.ambiplanner.features.home.mapper.toRoutine
+import com.ambiws.ambiplanner.features.home.domain.model.DailySuccess
 import com.ambiws.ambiplanner.features.home.ui.list.RoutineItemModel
+import com.ambiws.ambiplanner.utils.extensions.toFormattedString
+import com.ambiws.ambiplanner.utils.providers.PreferencesProvider
 import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
     private val routineInteractor: RoutineInteractor,
-    private val alarmHelper: AlarmHelper
+    private val alarmHelper: AlarmHelper,
+    private val preferencesProvider: PreferencesProvider
 ) : BaseViewModel() {
 
     private val _routineLiveData = MutableLiveData<List<RoutineItemModel>>()
@@ -48,9 +53,21 @@ class HomeViewModel @Inject constructor(
         launch {
             routineInteractor.getAllRoutines().collect { routines ->
                 val items = routines.map { it.toItemModel() }
+                updateDailySuccess(items)
                 _routineLiveData.postValue(sortRoutinesList(items))
             }
         }
+    }
+
+    private fun updateDailySuccess(routines: List<RoutineItemModel>) {
+        if (routines.isEmpty()) return
+
+        val success = when {
+            routines.all { it.isDone } -> DailySuccess.ALL_DONE
+            routines.any { it.isDone } -> DailySuccess.SOME_DONE
+            else -> DailySuccess.NONE_DONE
+        }
+        preferencesProvider.saveDailySuccess(Date().toFormattedString(), success)
     }
 
     private fun sortRoutinesList(routines: List<RoutineItemModel>): List<RoutineItemModel> {
