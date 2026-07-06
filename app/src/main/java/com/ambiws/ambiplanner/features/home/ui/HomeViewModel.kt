@@ -1,5 +1,9 @@
 package com.ambiws.ambiplanner.features.home.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ambiws.ambiplanner.base.BaseViewModel
@@ -16,16 +20,49 @@ import java.util.Date
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
+    context: Context,
     private val routineInteractor: RoutineInteractor,
     private val alarmHelper: AlarmHelper,
     private val preferencesProvider: PreferencesProvider
 ) : BaseViewModel() {
 
+    private val appContext = context.applicationContext
     private val _routineLiveData = MutableLiveData<List<RoutineItemModel>>()
     val routineLiveData: LiveData<List<RoutineItemModel>> = _routineLiveData
 
+    private val dateChangeReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.action == Intent.ACTION_DATE_CHANGED) {
+                checkAndResetRoutines()
+            }
+        }
+    }
+
     init {
+        appContext.registerReceiver(dateChangeReceiver, IntentFilter(Intent.ACTION_DATE_CHANGED))
+        checkAndResetRoutines()
         initRoutineList()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        try {
+            appContext.unregisterReceiver(dateChangeReceiver)
+        } catch (e: Exception) {
+            // Receiver might not be registered
+        }
+    }
+
+    private fun checkAndResetRoutines() {
+        val today = Date().toFormattedString()
+        val lastResetDate = preferencesProvider.getString(LAST_RESET_DATE_KEY)
+
+        if (lastResetDate != today) {
+            launch {
+                routineInteractor.resetAllRoutines()
+                preferencesProvider.saveString(LAST_RESET_DATE_KEY, today)
+            }
+        }
     }
 
     fun onRoutineDoneChanged(routine: RoutineItemModel, isDone: Boolean) {
@@ -108,5 +145,9 @@ class HomeViewModel @Inject constructor(
             val (h, m) = matchResult.destructured
             (h.toLong() * 3600 + m.toLong() * 60) * 1000
         } else 0
+    }
+
+    companion object {
+        private const val LAST_RESET_DATE_KEY = "last_reset_date"
     }
 }

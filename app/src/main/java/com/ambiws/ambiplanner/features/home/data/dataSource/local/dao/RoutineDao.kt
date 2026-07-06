@@ -22,4 +22,7 @@ interface RoutineDao {
 
     @Delete
     suspend fun delete(routine: RoutineEntity)
+
+    @Query("UPDATE RoutineEntity SET is_done = 0")
+    suspend fun resetAllRoutines()
 }

@@ -13,6 +13,7 @@ interface RoutineInteractor {
     suspend fun getRoutine(routineId: Int): Routine
     suspend fun insertAll(vararg routines: Routine): List<Long>
     suspend fun delete(routine: Routine)
+    suspend fun resetAllRoutines()
 }
 
 class RoutineInteractorImpl @Inject constructor(val routineDataSource: RoutineDataSource) : RoutineInteractor {
@@ -33,5 +34,9 @@ class RoutineInteractorImpl @Inject constructor(val routineDataSource: RoutineDa
 
     override suspend fun delete(routine: Routine) {
         routineDataSource.delete(routine.toRoutineEntity())
+    }
+
+    override suspend fun resetAllRoutines() {
+        routineDataSource.resetAllRoutines()
     }
 }
