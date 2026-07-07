@@ -13,8 +13,10 @@ import com.ambiws.ambiplanner.features.home.mapper.toItemModel
 import com.ambiws.ambiplanner.features.home.mapper.toRoutine
 import com.ambiws.ambiplanner.features.home.domain.model.DailySuccess
 import com.ambiws.ambiplanner.features.home.ui.list.RoutineItemModel
+import com.ambiws.ambiplanner.utils.Const
 import com.ambiws.ambiplanner.utils.extensions.toFormattedString
 import com.ambiws.ambiplanner.utils.providers.PreferencesProvider
+import kotlinx.coroutines.flow.first
 import java.util.Calendar
 import java.util.Date
 import javax.inject.Inject
@@ -55,12 +57,18 @@ class HomeViewModel @Inject constructor(
 
     private fun checkAndResetRoutines() {
         val today = Date().toFormattedString()
-        val lastResetDate = preferencesProvider.getString(LAST_RESET_DATE_KEY)
+        val lastResetDate = preferencesProvider.getString(Const.LAST_RESET_DATE_KEY)
 
         if (lastResetDate != today) {
             launch {
                 routineInteractor.resetAllRoutines()
-                preferencesProvider.saveString(LAST_RESET_DATE_KEY, today)
+                val allRoutines = routineInteractor.getAllRoutines().first()
+                allRoutines.forEach { routine ->
+                    if (routine.isNotificationEnabled && routine.startTime != null) {
+                        alarmHelper.scheduleAlarm(routine)
+                    }
+                }
+                preferencesProvider.saveString(Const.LAST_RESET_DATE_KEY, today)
             }
         }
     }
@@ -104,7 +112,11 @@ class HomeViewModel @Inject constructor(
             routines.any { it.isDone } -> DailySuccess.SOME_DONE
             else -> DailySuccess.NONE_DONE
         }
-        preferencesProvider.saveDailySuccess(Date().toFormattedString(), success)
+        val today = Date().toFormattedString()
+        val currentSuccess = preferencesProvider.getDailySuccess(today)
+        if (currentSuccess != success) {
+            preferencesProvider.saveDailySuccess(today, success)
+        }
     }
 
     private fun sortRoutinesList(routines: List<RoutineItemModel>): List<RoutineItemModel> {
@@ -145,9 +157,5 @@ class HomeViewModel @Inject constructor(
             val (h, m) = matchResult.destructured
             (h.toLong() * 3600 + m.toLong() * 60) * 1000
         } else 0
-    }
-
-    companion object {
-        private const val LAST_RESET_DATE_KEY = "last_reset_date"
     }
 }

@@ -6,12 +6,57 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.ambiws.ambiplanner.core.receiver.AlarmReceiver
+import com.ambiws.ambiplanner.core.receiver.MidnightReceiver
 import com.ambiws.ambiplanner.features.home.domain.model.Routine
+import com.ambiws.ambiplanner.utils.logd
 import java.util.Calendar
 
 class AlarmHelper(private val context: Context) {
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+
+    fun scheduleMidnightReset() {
+        val intent = Intent(context, MidnightReceiver::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            MIDNIGHT_REQUEST_CODE,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val calendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            add(Calendar.DAY_OF_YEAR, 1)
+        }
+
+        // Log the next reset time for verification
+        logd("Scheduling next reset for: ${calendar.time}")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager?.canScheduleExactAlarms() == true) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    pendingIntent
+                )
+            } else {
+                alarmManager?.set(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.timeInMillis,
+                    pendingIntent
+                )
+            }
+        } else {
+            alarmManager?.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                pendingIntent
+            )
+        }
+    }
 
     fun scheduleAlarm(routine: Routine) {
         if (!routine.isNotificationEnabled || routine.startTime == null) return
@@ -78,5 +123,9 @@ class AlarmHelper(private val context: Context) {
         }
 
         return calendar.timeInMillis
+    }
+
+    companion object {
+        private const val MIDNIGHT_REQUEST_CODE = 1001
     }
 }
