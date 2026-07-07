@@ -33,7 +33,12 @@ object RoutineAdapterDelegate {
                     tvCompletionTime.apply {
                         isVisible = item.timeToComplete?.also { text = "$it on Completion" } != null
                     }
-                    ivEdit.setOnClickListener { onClickListener.invoke(item) }
+                    binding.routineHolder.setOnLongClickListener {
+                        if (!cbDone.isChecked) {
+                            onClickListener.invoke(item)
+                        }
+                        true
+                    }
 
                     cbDone.setOnCheckedChangeListener(null)
                     cbDone.isChecked = item.isDone
