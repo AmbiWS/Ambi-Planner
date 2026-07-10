@@ -63,7 +63,7 @@ class AlarmHelper(private val context: Context) {
 
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra("EXTRA_TITLE", routine.title)
-            putExtra("EXTRA_DESCRIPTION", routine.description ?: "Your routine timer has ended.")
+            putExtra("EXTRA_DESCRIPTION", routine.description ?: "Need to be completed.")
             putExtra("EXTRA_ID", routine.id ?: 0)
         }
 

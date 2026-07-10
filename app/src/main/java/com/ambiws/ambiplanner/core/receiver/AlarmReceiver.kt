@@ -14,7 +14,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val title = intent.getStringExtra("EXTRA_TITLE") ?: "Routine Reminder"
-        val description = intent.getStringExtra("EXTRA_DESCRIPTION") ?: "Your routine timer has ended."
+        val description = intent.getStringExtra("EXTRA_DESCRIPTION") ?: "Need to be completed."
         val notificationId = intent.getIntExtra("EXTRA_ID", 0)
 
         showNotification(context, title, description, notificationId)
@@ -38,7 +38,7 @@ class AlarmReceiver : BroadcastReceiver() {
         }
 
         val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(title)
             .setContentText(description)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
