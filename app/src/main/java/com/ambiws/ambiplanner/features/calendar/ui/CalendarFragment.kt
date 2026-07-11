@@ -13,10 +13,24 @@ import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
 import java.time.YearMonth
 import java.util.Locale
+import com.ambiws.ambiplanner.R
+import com.ambiws.ambiplanner.features.home.domain.model.DailySuccess
+import com.ambiws.ambiplanner.utils.extensions.subscribe
 
 class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding>(
     FragmentCalendarBinding::inflate
 ) {
+
+    override fun setupObservers() {
+        super.setupObservers()
+        subscribe(viewModel.successStats) { stats ->
+            with(binding) {
+                tvCompleted.text = getString(R.string.finished_days, stats[DailySuccess.ALL_DONE] ?: 0)
+                tvMixed.text = getString(R.string.mixed_days, stats[DailySuccess.SOME_DONE] ?: 0)
+                tvSkipped.text = getString(R.string.skipped_days, stats[DailySuccess.NONE_DONE] ?: 0)
+            }
+        }
+    }
 
     override fun setupUi() {
         super.setupUi()

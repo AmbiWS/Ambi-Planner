@@ -30,6 +30,8 @@ interface PreferencesProvider {
     fun saveDailySuccess(date: String, success: DailySuccess)
 
     fun getDailySuccess(date: String): DailySuccess
+
+    fun getDailySuccessStats(): Map<DailySuccess, Int>
 }
 
 class PreferencesProviderImpl(context: Context) : PreferencesProvider {
@@ -88,6 +90,19 @@ class PreferencesProviderImpl(context: Context) : PreferencesProvider {
     override fun getDailySuccess(date: String): DailySuccess {
         val value = getInt(DAILY_SUCCESS_PREFIX + date)
         return DailySuccess.fromInt(value)
+    }
+
+    override fun getDailySuccessStats(): Map<DailySuccess, Int> {
+        val allEntries = sharedPreferences.all
+        val stats = mutableMapOf<DailySuccess, Int>()
+
+        allEntries.forEach { (key, value) ->
+            if (key.startsWith(DAILY_SUCCESS_PREFIX) && value is Int) {
+                val success = DailySuccess.fromInt(value)
+                stats[success] = stats.getOrDefault(success, 0) + 1
+            }
+        }
+        return stats
     }
 
     companion object {

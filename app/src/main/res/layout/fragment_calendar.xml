@@ -25,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:drawablePadding="8dp"
         android:gravity="center"
-        android:text="@string/finished_days_0"
+        android:text="@string/finished_days"
         app:drawableStartCompat="@drawable/green_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendar" />
@@ -39,7 +39,7 @@
         android:layout_marginTop="8dp"
         android:drawablePadding="8dp"
         android:gravity="center"
-        android:text="@string/mixed_days_0"
+        android:text="@string/mixed_days"
         app:drawableStartCompat="@drawable/yellow_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCompleted" />
@@ -53,7 +53,7 @@
         android:layout_marginTop="8dp"
         android:drawablePadding="8dp"
         android:gravity="center"
-        android:text="@string/skipped_days_0"
+        android:text="@string/skipped_days"
         app:drawableStartCompat="@drawable/red_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvMixed" />
