@@ -2,6 +2,8 @@ package com.ambiws.ambiplanner.utils.providers
 
 import android.content.Context
 import com.ambiws.ambiplanner.features.home.domain.model.DailySuccess
+import com.ambiws.ambiplanner.utils.extensions.toFormattedString
+import java.util.Date
 
 interface PreferencesProvider {
 
@@ -95,9 +97,10 @@ class PreferencesProviderImpl(context: Context) : PreferencesProvider {
     override fun getDailySuccessStats(): Map<DailySuccess, Int> {
         val allEntries = sharedPreferences.all
         val stats = mutableMapOf<DailySuccess, Int>()
+        val todayKey = DAILY_SUCCESS_PREFIX + Date().toFormattedString()
 
         allEntries.forEach { (key, value) ->
-            if (key.startsWith(DAILY_SUCCESS_PREFIX) && value is Int) {
+            if (key.startsWith(DAILY_SUCCESS_PREFIX) && key != todayKey && value is Int) {
                 val success = DailySuccess.fromInt(value)
                 stats[success] = stats.getOrDefault(success, 0) + 1
             }
