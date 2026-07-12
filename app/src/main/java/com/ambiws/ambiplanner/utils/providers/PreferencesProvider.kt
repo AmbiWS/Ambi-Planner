@@ -31,7 +31,7 @@ interface PreferencesProvider {
 
     fun saveDailySuccess(date: String, success: DailySuccess)
 
-    fun getDailySuccess(date: String): DailySuccess
+    fun getDailySuccess(date: String): DailySuccess?
 
     fun getDailySuccessStats(): Map<DailySuccess, Int>
 }
@@ -89,8 +89,10 @@ class PreferencesProviderImpl(context: Context) : PreferencesProvider {
         saveInt(DAILY_SUCCESS_PREFIX + date, success.value)
     }
 
-    override fun getDailySuccess(date: String): DailySuccess {
-        val value = getInt(DAILY_SUCCESS_PREFIX + date)
+    override fun getDailySuccess(date: String): DailySuccess? {
+        val key = DAILY_SUCCESS_PREFIX + date
+        if (!sharedPreferences.contains(key)) return null
+        val value = getInt(key)
         return DailySuccess.fromInt(value)
     }
 

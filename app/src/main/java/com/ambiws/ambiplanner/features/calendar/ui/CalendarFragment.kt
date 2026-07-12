@@ -7,10 +7,12 @@ import com.ambiws.ambiplanner.databinding.CalendarMonthHeaderBinding
 import com.ambiws.ambiplanner.databinding.FragmentCalendarBinding
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
+import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
+import java.time.LocalDate
 import java.time.YearMonth
 import java.util.Locale
 import com.ambiws.ambiplanner.R
@@ -36,11 +38,27 @@ class CalendarFragment : BaseFragment<CalendarViewModel, FragmentCalendarBinding
         super.setupUi()
 
         val monthsToAdd = 100L
+        val today = LocalDate.now()
         with(binding) {
             calendar.dayBinder = object : MonthDayBinder<DayViewContainer> {
                 override fun create(view: View) = DayViewContainer(view)
                 override fun bind(container: DayViewContainer, data: CalendarDay) {
                     container.textView.text = data.date.dayOfMonth.toString()
+                    
+                    if (data.position == DayPosition.MonthDate && data.date.isBefore(today)) {
+                        viewModel.getDailySuccessForDate(data.date)?.let { success ->
+                            val backgroundRes = when (success) {
+                                DailySuccess.ALL_DONE -> R.color.ltgreen
+                                DailySuccess.SOME_DONE -> R.color.ltyellow
+                                DailySuccess.NONE_DONE -> R.color.ltred
+                            }
+                            container.textView.setBackgroundResource(backgroundRes)
+                        } ?: run {
+                            container.textView.background = null
+                        }
+                    } else {
+                        container.textView.background = null
+                    }
                 }
             }
 

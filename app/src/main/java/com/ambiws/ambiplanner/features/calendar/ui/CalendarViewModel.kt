@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.features.home.domain.model.DailySuccess
 import com.ambiws.ambiplanner.utils.providers.PreferencesProvider
+import java.time.LocalDate
 import javax.inject.Inject
 
 class CalendarViewModel @Inject constructor(
@@ -20,5 +21,9 @@ class CalendarViewModel @Inject constructor(
 
     private fun loadStats() {
         _successStats.value = preferencesProvider.getDailySuccessStats()
+    }
+
+    fun getDailySuccessForDate(date: LocalDate): DailySuccess? {
+        return preferencesProvider.getDailySuccess(date.toString())
     }
 }
