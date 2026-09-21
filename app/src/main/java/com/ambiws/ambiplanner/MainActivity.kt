@@ -30,10 +30,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(this, (application as App).getAppComponent().viewModelComponent.build().factory)[MainViewModel::class.java]
         initViewBinding()
         initNavigation()
         requestNotificationPermission()
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        intent?.getIntExtra("EXTRA_ROUTINE_ID_DONE", -1)?.takeIf { it != -1 }?.let { routineId ->
+            mainViewModel.markRoutineAsDone(routineId)
+        }
     }
 
     private fun requestNotificationPermission() {

@@ -1,5 +1,6 @@
 package com.ambiws.ambiplanner.core.di.modules
 
+import com.ambiws.ambiplanner.MainViewModel
 import com.ambiws.ambiplanner.base.BaseViewModel
 import com.ambiws.ambiplanner.core.di.vm.ViewModelKey
 import com.ambiws.ambiplanner.features.calendar.ui.CalendarViewModel
@@ -38,4 +39,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(EditRoutineItemViewModel::class)
     fun provideEditRoutineItemViewModel(editRoutineItemViewModel: EditRoutineItemViewModel): BaseViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    fun provideMainViewModel(mainViewModel: MainViewModel): BaseViewModel
 }

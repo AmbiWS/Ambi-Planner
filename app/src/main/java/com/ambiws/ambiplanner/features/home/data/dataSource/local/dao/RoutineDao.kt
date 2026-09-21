@@ -25,4 +25,7 @@ interface RoutineDao {
 
     @Query("UPDATE RoutineEntity SET is_done = 0")
     suspend fun resetAllRoutines()
+
+    @Query("UPDATE RoutineEntity SET is_done = :isDone WHERE id = :routineId")
+    suspend fun updateRoutineDoneStatus(routineId: Int, isDone: Boolean)
 }

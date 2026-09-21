@@ -14,6 +14,7 @@ interface RoutineInteractor {
     suspend fun insertAll(vararg routines: Routine): List<Long>
     suspend fun delete(routine: Routine)
     suspend fun resetAllRoutines()
+    suspend fun updateRoutineDoneStatus(routineId: Int, isDone: Boolean)
 }
 
 class RoutineInteractorImpl @Inject constructor(val routineDataSource: RoutineDataSource) : RoutineInteractor {
@@ -38,5 +39,9 @@ class RoutineInteractorImpl @Inject constructor(val routineDataSource: RoutineDa
 
     override suspend fun resetAllRoutines() {
         routineDataSource.resetAllRoutines()
+    }
+
+    override suspend fun updateRoutineDoneStatus(routineId: Int, isDone: Boolean) {
+        routineDataSource.updateRoutineDoneStatus(routineId, isDone)
     }
 }

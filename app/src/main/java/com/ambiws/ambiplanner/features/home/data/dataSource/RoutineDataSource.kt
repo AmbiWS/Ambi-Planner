@@ -11,6 +11,7 @@ interface RoutineDataSource {
     suspend fun insertAll(vararg routines: RoutineEntity): List<Long>
     suspend fun delete(routine: RoutineEntity)
     suspend fun resetAllRoutines()
+    suspend fun updateRoutineDoneStatus(routineId: Int, isDone: Boolean)
 }
 
 class RoutineDataSourceImpl @Inject constructor(val routineDao: RoutineDao) : RoutineDataSource {
@@ -33,5 +34,9 @@ class RoutineDataSourceImpl @Inject constructor(val routineDao: RoutineDao) : Ro
 
     override suspend fun resetAllRoutines() {
         routineDao.resetAllRoutines()
+    }
+
+    override suspend fun updateRoutineDoneStatus(routineId: Int, isDone: Boolean) {
+        routineDao.updateRoutineDoneStatus(routineId, isDone)
     }
 }
